@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <!--    <includeAll path="src/main/resources/config/liquibase/changelog" />-->
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230102000000_added_user_column_to_dayactivity.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231102000000_added_testcolumn_to_region.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20232002000000_added_user_column_to_activity.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20232102000000_added_user_column_to_global_flags.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230404000000_added_timezone_column_to_jhi_user.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231705000000_added_user_column_to_activity_type.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231606000000_added_more_free_categories.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+</databaseChangeLog>

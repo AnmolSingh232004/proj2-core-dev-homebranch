@@ -1,0 +1,10 @@
+.idea/
+core/domain/target/
+core/infrastructure/spring-based-app/spring-application/target/
+core/infrastructure/spring-based-app/spring-database-repository/target/
+core/repository-interface/target/
+core/application-logic/target/
+core/application-services/target/
+core/infrastructure/spring-based-app/spring-configuration/target/
+core/infrastructure/spring-based-app/spring-rest-services/target/
+

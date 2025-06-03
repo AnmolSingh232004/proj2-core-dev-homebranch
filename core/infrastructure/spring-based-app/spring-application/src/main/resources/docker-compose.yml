@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:8.0.29
+    container_name: proj2-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=proj2_dev
+    ports:
+      - "3305:3306"
+    restart: always

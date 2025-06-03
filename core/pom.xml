@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>proj2</artifactId>
+        <groupId>org.tasos</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>core</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>infrastructure</module>
+        <module>domain</module>
+        <module>repository-interface</module>
+        <module>application-services</module>
+        <module>application-logic</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
+        <!--dependencies-->
+        <version.spring.boot>2.6.2</version.spring.boot>
+        <version.lombok>1.18.22</version.lombok>
+        <version.javax.inject>1</version.javax.inject>
+        <version.common-lang>2.6</version.common-lang>
+        <version.plexus-utils>3.4.1</version.plexus-utils>
+        <version.asciitable>0.3.2</version.asciitable>
+        <version.hibernate>5.6.3.Final</version.hibernate>
+        <version.spring-framework>5.3.14</version.spring-framework>
+        <version.h2-database>1.4.200</version.h2-database>
+        <version.liquibase>4.6.2</version.liquibase>
+        <version.junit>4.13.2</version.junit>
+        <validation-api.version>2.0.1.Final</validation-api.version>
+        <querydsl.version>4.2.1</querydsl.version>
+
+        <!--plugins-->
+        <version.frontend-maven-plugin>1.12.1</version.frontend-maven-plugin>
+        <version.maven-clean-plugin>3.1.0</version.maven-clean-plugin>
+        <verison.maven-jar-plugin>3.2.0</verison.maven-jar-plugin>
+        <version.version-maven-plugin>2.8.1</version.version-maven-plugin>
+
+    </properties>
+
+
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-apt</artifactId>
+                <version>${querydsl.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-jpa</artifactId>
+                <version>${querydsl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${version.lombok}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>${version.javax.inject}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${version.spring.boot}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${version.spring.boot}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+                <version>${version.spring.boot}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${version.spring.boot}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${version.spring.boot}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${version.hibernate}</version>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.hibernate</groupId>-->
+<!--                <artifactId>hibernate-jpamodelgen</artifactId>-->
+<!--                <version>${version.hibernate}</version>-->
+<!--            </dependency>-->
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${version.spring-framework}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${version.h2-database}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test*</include>
+                    </includes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>slow-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.0</version>
+                        <configuration>
+                            <includes>
+                                <include>**/*Slow*</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+
+</project>

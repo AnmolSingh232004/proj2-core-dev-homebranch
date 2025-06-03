@@ -1,0 +1,78 @@
+package org.tasos.proj2.springrestservices.controller;
+
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.tasos.proj2.applicationservices.services.ActivityTypeServiceI;
+import org.tasos.proj2.domain.activity.ActivityType;
+import org.tasos.proj2.springrestservices.controller.util.HeaderUtil;
+import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
+import org.tasos.proj2.springrestservices.dto.activity.ActivityTypeResponse;
+import org.tasos.proj2.springrestservices.dto.dayactivity.DayActivityResponse2;
+import org.tasos.proj2.springrestservices.mapper.ActivityTypeDomainToResponseMapper;
+
+import lombok.AllArgsConstructor;
+
+@RestController
+@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003", "https://157.230.113.41"})
+@RequestMapping("/api/proj2")
+@AllArgsConstructor(onConstructor = @__(@Inject))
+public class ActivityTypeController {
+
+    private final Logger logger = LoggerFactory.getLogger(ActivityTypeController.class);
+
+    private final ActivityTypeServiceI activityTypeService;
+
+    private final ActivityTypeDomainToResponseMapper mapper;
+
+    @PostMapping("/activity-types/create")
+    @Secured({"ROLE_PAID"})
+    public ResponseEntity<String> createActivityType(@RequestBody String newActType) throws URISyntaxException {
+        // Add JWT username
+        String userName = JWTUtils.getUserNameFromJWT();
+
+//        log.debug("REST request to save DayActivities : {}", dayActivityDtos.size());
+        String actTypeCreated = activityTypeService.createActivityTypeForUser(newActType, userName);
+
+        return ResponseEntity.created(null).body(actTypeCreated);
+    }
+
+    @GetMapping("/activity-types")
+    public List<ActivityTypeResponse> getAllActivityTypesForUser() {
+        // Add JWT username
+        String userName = JWTUtils.getUserNameFromJWT();
+
+        List<ActivityType> userTypes = activityTypeService.getAllActivityTypesForUser(userName);
+
+        List<ActivityTypeResponse> response = userTypes.stream()
+          .filter(actType -> !"GYM".equals(actType.getTitle()))
+          .map( actType -> this.mapper.mapToActivityTypeResponse(actType)).collect(Collectors.toList());
+
+        return response;
+    }
+
+    @DeleteMapping("/activity-types/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) throws Exception {
+        //        log.debug("REST request to delete Activity : {}", id);
+        activityTypeService.deleteActivityType(id);
+        return ResponseEntity.noContent()
+          .headers(HeaderUtil.createEntityDeletionAlert("applicationName", false, "ENTITY_NAME", id.toString()))
+          .build();
+    }
+
+}

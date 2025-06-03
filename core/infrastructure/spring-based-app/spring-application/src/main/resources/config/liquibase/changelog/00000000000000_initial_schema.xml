@@ -1,0 +1,362 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="tioan (generated)" id="1675895134152-1">
+        <createTable tableName="activity">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="activity_sub_type" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="activitytype_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-2">
+        <createTable tableName="activity_type">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-3">
+        <createTable tableName="country">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="country_name" type="VARCHAR(255)"/>
+            <column name="region_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-4">
+        <createTable tableName="day_activity">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="amount_factor" type="VARCHAR(255)"/>
+            <column name="date" type="date"/>
+            <column name="logged_reps" type="VARCHAR(255)"/>
+            <column name="todo_kg" type="VARCHAR(255)"/>
+            <column name="todo_reps" type="VARCHAR(255)"/>
+            <column name="todo_sets" type="VARCHAR(255)"/>
+            <column name="activity_id" type="BIGINT"/>
+            <column name="activitytype_id" type="BIGINT"/>
+            <column name="is_logged" type="BIT(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-5">
+        <createTable tableName="department">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="department_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-6">
+        <createTable tableName="employee">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="commission_pct" type="BIGINT"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="hire_date" type="datetime(6)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="salary" type="BIGINT"/>
+            <column name="department_id" type="BIGINT"/>
+            <column name="manager_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-7">
+        <createTable tableName="global_flag">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="is_active" type="BIT(1)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-8">
+        <createTable tableName="jhi_authority">
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-9">
+        <createTable tableName="jhi_persistent_audit_event">
+            <column autoIncrement="true" name="event_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="event_date" type="datetime(6)"/>
+            <column name="event_type" type="VARCHAR(255)"/>
+            <column name="principal" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-10">
+        <createTable tableName="jhi_persistent_audit_evt_data">
+            <column name="event_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-11">
+        <createTable tableName="jhi_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime(6)"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="datetime(6)"/>
+            <column name="activated" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(254)"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="image_url" type="VARCHAR(256)"/>
+            <column name="lang_key" type="VARCHAR(10)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_date" type="datetime(6)"/>
+            <column name="reset_key" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-12">
+        <createTable tableName="jhi_user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-13">
+        <createTable tableName="job">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="job_title" type="VARCHAR(255)"/>
+            <column name="max_salary" type="BIGINT"/>
+            <column name="min_salary" type="BIGINT"/>
+            <column name="employee_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-14">
+        <createTable tableName="job_history">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="end_date" type="datetime(6)"/>
+            <column name="language" type="VARCHAR(255)"/>
+            <column name="start_date" type="datetime(6)"/>
+            <column name="department_id" type="BIGINT"/>
+            <column name="employee_id" type="BIGINT"/>
+            <column name="job_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-15">
+        <createTable tableName="job_task">
+            <column name="job_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="task_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-16">
+        <createTable tableName="location">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="postal_code" type="VARCHAR(255)"/>
+            <column name="state_province" type="VARCHAR(255)"/>
+            <column name="street_address" type="VARCHAR(255)"/>
+            <column name="country_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-17">
+        <createTable tableName="region">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="region_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-18">
+        <createTable tableName="session_flag_dates">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="end_date" type="date"/>
+            <column name="start_date" type="date"/>
+            <column name="global_flag_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-19">
+        <createTable tableName="task">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-20">
+        <addPrimaryKey columnNames="name" constraintName="PRIMARY" tableName="jhi_authority"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-21">
+        <addPrimaryKey columnNames="event_id, name" constraintName="PRIMARY" tableName="jhi_persistent_audit_evt_data"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-22">
+        <addPrimaryKey columnNames="user_id, authority_name" constraintName="PRIMARY" tableName="jhi_user_authority"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-23">
+        <addPrimaryKey columnNames="job_id, task_id" constraintName="PRIMARY" tableName="job_task"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-24">
+        <addUniqueConstraint columnNames="department_id" constraintName="UK_2benpqe455foqkfcgi0jjh63e" tableName="job_history"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-25">
+        <addUniqueConstraint columnNames="login" constraintName="UK_9y0frpqnmqe7y6mk109vw3246" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-26">
+        <addUniqueConstraint columnNames="job_id" constraintName="UK_buw2l0rwspbnlx3wi4womfo55" tableName="job_history"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-27">
+        <addUniqueConstraint columnNames="email" constraintName="UK_bycanyquvi09q7fh5pgxrqnku" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-28">
+        <addUniqueConstraint columnNames="location_id" constraintName="UK_e19n7n78ppli0pc6nstem49ya" tableName="department"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-29">
+        <addUniqueConstraint columnNames="employee_id" constraintName="UK_e1poa94nbfdncxt7kvt0p340v" tableName="job_history"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-30">
+        <addUniqueConstraint columnNames="region_id" constraintName="UK_hc9mjste783w3n9f93e0lf7i4" tableName="country"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-31">
+        <addUniqueConstraint columnNames="country_id" constraintName="UK_oij09nrgw3jac87nxirlho8cj" tableName="location"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-32">
+        <createIndex indexName="FK4psxl0jtx6nr7rhqbynr6itoc" tableName="jhi_user_authority">
+            <column name="authority_name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-33">
+        <createIndex indexName="FKaq07a4510mjpb7qx0y94s93sh" tableName="day_activity">
+            <column name="activity_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-34">
+        <createIndex indexName="FKaqjpcb20qnu30mklmulk7xydt" tableName="job_task">
+            <column name="task_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-35">
+        <createIndex indexName="FKbejtwvg9bxus2mffsm3swj3u9" tableName="employee">
+            <column name="department_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-36">
+        <createIndex indexName="FKemkox7dxhdv7vu5c8d1rwuc44" tableName="day_activity">
+            <column name="activitytype_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-37">
+        <createIndex indexName="FKf1r7yjyd8j729jpk3f1dckt68" tableName="session_flag_dates">
+            <column name="global_flag_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-38">
+        <createIndex indexName="FKh1rlxay4sp8hnk87xvfeosqx0" tableName="activity">
+            <column name="activitytype_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-39">
+        <createIndex indexName="FKkbfwqadwjxuh6vqgis77q7c7f" tableName="job">
+            <column name="employee_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-40">
+        <createIndex indexName="FKou6wbxug1d0qf9mabut3xqblo" tableName="employee">
+            <column name="manager_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-41">
+        <addForeignKeyConstraint baseColumnNames="job_id" baseTableName="job_history" constraintName="FK1qikydvi1h4879h5mkvpddnu5" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="job"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-42">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_user_authority" constraintName="FK290okww5jujghp4el5i7mgwu0" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-43">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="FK2ehnyx2si4tjd2nt4q7y40v8m" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-44">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="job_history" constraintName="FK3j9mpn82on45fsk7ah4tps67o" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="employee"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-45">
+        <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="jhi_user_authority" constraintName="FK4psxl0jtx6nr7rhqbynr6itoc" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="name" referencedTableName="jhi_authority"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-46">
+        <addForeignKeyConstraint baseColumnNames="activity_id" baseTableName="day_activity" constraintName="FKaq07a4510mjpb7qx0y94s93sh" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="activity"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-47">
+        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="job_task" constraintName="FKaqjpcb20qnu30mklmulk7xydt" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="task"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-48">
+        <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="employee" constraintName="FKbejtwvg9bxus2mffsm3swj3u9" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="department"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-49">
+        <addForeignKeyConstraint baseColumnNames="activitytype_id" baseTableName="day_activity" constraintName="FKemkox7dxhdv7vu5c8d1rwuc44" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="activity_type"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-50">
+        <addForeignKeyConstraint baseColumnNames="global_flag_id" baseTableName="session_flag_dates" constraintName="FKf1r7yjyd8j729jpk3f1dckt68" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="global_flag"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-51">
+        <addForeignKeyConstraint baseColumnNames="activitytype_id" baseTableName="activity" constraintName="FKh1rlxay4sp8hnk87xvfeosqx0" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="activity_type"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-52">
+        <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="job_history" constraintName="FKjo9yhubhvo4qefb2t36e619s7" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="department"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-53">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="job" constraintName="FKkbfwqadwjxuh6vqgis77q7c7f" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="employee"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-54">
+        <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="location" constraintName="FKn5m6ve3ryy2r25qvisdrg0aos" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="country"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-55">
+        <addForeignKeyConstraint baseColumnNames="manager_id" baseTableName="employee" constraintName="FKou6wbxug1d0qf9mabut3xqblo" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="employee"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-56">
+        <addForeignKeyConstraint baseColumnNames="job_id" baseTableName="job_task" constraintName="FKpdjx6xa2gmqbjxiju8voj0yyi" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="job"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-57">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="department" constraintName="FKrf9pmd4xvkiuh46soainevapk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="tioan (generated)" id="1675895134152-58">
+        <addForeignKeyConstraint baseColumnNames="region_id" baseTableName="country" constraintName="FKs3bda8801uhqtttuaur9r6eic" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="region"/>
+    </changeSet>
+</databaseChangeLog>
