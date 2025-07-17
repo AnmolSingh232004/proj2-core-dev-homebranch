@@ -1,26 +1,16 @@
 package org.tasos.proj2.applicationlogic.services.implementation;
 
-import org.tasos.proj2.applicationlogic.services.implementation.util.ThrowingConsumer;
-import org.tasos.proj2.applicationservices.services.ActivityServiceI;
-import org.tasos.proj2.applicationservices.services.GlobalFlagServiceI;
-import org.tasos.proj2.applicationservices.services.SessionFlagDatesServiceI;
-import org.tasos.proj2.domain.activity.ActivityAggregate;
-import org.tasos.proj2.domain.activity.ActivityType;
-import org.tasos.proj2.domain.activity.CreateActivityDTO;
-import org.tasos.proj2.domain.globalsessionflags.GlobalFlagDomain;
-import org.tasos.proj2.domain.globalsessionflags.SessionFlagDatesDomain;
-import org.tasos.proj2.repositoryinterface.activity.ActivityRepositoryI;
-import org.tasos.proj2.repositoryinterface.activity.ActivityTypeRepositoryI;
-import org.tasos.proj2.repositoryinterface.globalsessionflags.GlobalFlagRepositoryI;
-import org.tasos.proj2.repositoryinterface.globalsessionflags.SessionFlagDatesRepositoryI;
+import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.inject.Inject;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
+
+import org.tasos.proj2.applicationservices.services.GlobalFlagServiceI;
+import org.tasos.proj2.applicationservices.services.SessionFlagDatesServiceI;
+import org.tasos.proj2.domain.globalsessionflags.GlobalFlagDomain;
+import org.tasos.proj2.domain.globalsessionflags.SessionFlagDatesDomain;
+import org.tasos.proj2.repositoryinterface.globalsessionflags.GlobalFlagRepositoryI;
+import org.tasos.proj2.repositoryinterface.globalsessionflags.SessionFlagDatesRepositoryI;
 
 public class SessionFlagDatesService implements SessionFlagDatesServiceI, GlobalFlagServiceI {
 

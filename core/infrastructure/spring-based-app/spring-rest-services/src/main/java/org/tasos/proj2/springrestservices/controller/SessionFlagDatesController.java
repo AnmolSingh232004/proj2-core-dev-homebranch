@@ -10,7 +10,7 @@ import org.tasos.proj2.domain.globalsessionflags.GlobalFlagDomain;
 import org.tasos.proj2.domain.globalsessionflags.SessionFlagDatesDomain;
 import org.tasos.proj2.springrestservices.controller.util.HeaderUtil;
 import org.tasos.proj2.springrestservices.controller.util.ResponseUtil;
-import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
+//import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
 import org.tasos.proj2.springrestservices.dto.globalFlag.GlobalFlagRequest;
 import org.tasos.proj2.springrestservices.dto.globalFlag.GlobalFlagResponse;
 import org.tasos.proj2.springrestservices.dto.sessionFlagDates.SessionFlagDatesRequest;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 @RestController
-@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003", "https://157.230.113.41"})
+@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003"})
 @RequestMapping("/api/proj2")
 public class SessionFlagDatesController {
 
@@ -45,7 +45,7 @@ public class SessionFlagDatesController {
     public SessionFlagDatesResponse endGymSession(@RequestBody SessionFlagDatesRequest sessionFlagDatesReq) throws URISyntaxException {
 
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
 
         // Request to Domain
         SessionFlagDatesDomain sessionFlagDatesDomain = new SessionFlagDatesDomain(null, new GlobalFlagDomain(userName),
@@ -53,7 +53,6 @@ public class SessionFlagDatesController {
 
         SessionFlagDatesDomain domainResp = sessionFlagDatesService.endGymSession(sessionFlagDatesDomain);
 
-        // DONT NEED TO RETURN ANYTHING - ITS A POST ACTION.
         // Domain to Response
         SessionFlagDatesResponse resp = new SessionFlagDatesResponse();
         resp.setStartDate(resp.getStartDate());
@@ -66,7 +65,7 @@ public class SessionFlagDatesController {
     public SessionFlagDatesResponse startGymSession(@RequestBody SessionFlagDatesRequest sessionFlagDatesReq) throws URISyntaxException {
 
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
 
         // Request to Domain
         SessionFlagDatesDomain sessionFlagDatesDomain = new SessionFlagDatesDomain(null, new GlobalFlagDomain(userName),
@@ -74,7 +73,6 @@ public class SessionFlagDatesController {
 
         SessionFlagDatesDomain domainResp = sessionFlagDatesService.startGymSession(sessionFlagDatesDomain);
 
-        // DONT NEED TO RETURN ANYTHING - ITS A POST ACTION.
         // Domain to Response
         SessionFlagDatesResponse resp = new SessionFlagDatesResponse();
         resp.setStartDate(resp.getStartDate());
@@ -92,7 +90,7 @@ public class SessionFlagDatesController {
         log.debug("REST request to get end date of last gym session");
 
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
 
         SessionFlagDatesDomain domainResp = sessionFlagDatesService.getLastEndDateOfGymSessions(userName);
 
@@ -118,7 +116,7 @@ public class SessionFlagDatesController {
     public ResponseEntity<GlobalFlagResponse> createGlobalFlag(@RequestBody GlobalFlagRequest globalFlagReq) throws URISyntaxException {
 
         // Add JWT username
-        globalFlagReq.setUserName(JWTUtils.getUserNameFromJWT());
+        globalFlagReq.setUserName("user");
 
         // Request to Domain
         GlobalFlagDomain globalFlagDomain = new GlobalFlagDomain(null, globalFlagReq.getName(),
@@ -138,7 +136,7 @@ public class SessionFlagDatesController {
     public ResponseEntity<GlobalFlagResponse> updateGlobalFlag(@RequestBody GlobalFlagRequest globalFlagReq) throws URISyntaxException {
 
         // Add JWT username
-        globalFlagReq.setUserName(JWTUtils.getUserNameFromJWT());
+        globalFlagReq.setUserName("user");
 
         // Request to Domain
         GlobalFlagDomain globalFlagDomain = new GlobalFlagDomain(globalFlagReq.getId(), globalFlagReq.getName(),
@@ -158,7 +156,7 @@ public class SessionFlagDatesController {
     @GetMapping("/global-flags")
     public List<GlobalFlagResponse> getAllGlobalFlagsPerUser() {
         // Add JWT username
-       String userName = JWTUtils.getUserNameFromJWT();
+       String userName = "user";
 
         List<GlobalFlagDomain> globalFlags = sessionFlagDatesGlobalFlagService.getAllGlobalFlagsPerUser(userName);
 

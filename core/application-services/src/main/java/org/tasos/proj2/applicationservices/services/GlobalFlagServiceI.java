@@ -1,9 +1,9 @@
 package org.tasos.proj2.applicationservices.services;
 
-import org.tasos.proj2.domain.globalsessionflags.GlobalFlagDomain;
-
 import java.net.URISyntaxException;
 import java.util.List;
+
+import org.tasos.proj2.domain.globalsessionflags.GlobalFlagDomain;
 
 public interface GlobalFlagServiceI {
 

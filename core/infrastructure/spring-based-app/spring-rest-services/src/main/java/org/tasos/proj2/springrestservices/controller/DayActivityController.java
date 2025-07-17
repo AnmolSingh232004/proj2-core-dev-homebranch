@@ -6,13 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.tasos.proj2.applicationservices.services.DayActivityServiceI;
 import org.tasos.proj2.domain.dayactivity.DayActivityAggregate;
 import org.tasos.proj2.domain.dayactivity.DayActivityProjection;
 import org.tasos.proj2.springrestservices.controller.util.HeaderUtil;
-import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
+//import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
 import org.tasos.proj2.springrestservices.controller.util.dayActivitiesAccumulator.DayActivitiesPerTypeCalculator;
 import org.tasos.proj2.springrestservices.controller.util.dayActivitiesAccumulator.DayActivitiesPerTypeExtendedArrayDTO;
 import org.tasos.proj2.springrestservices.dto.dayactivity.*;
@@ -32,7 +32,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003", "https://157.230.113.41"})
+@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003"})
 @RequestMapping("/api/proj2")
 @AllArgsConstructor(onConstructor = @__(@Inject))
 public class DayActivityController {
@@ -56,14 +56,11 @@ public class DayActivityController {
      * @throws URISyntaxException
      */
     @PostMapping("/day-activities")
-    @Secured({"ROLE_USER", "ROLE_PAID"})
     public ResponseEntity<List<DayActivityResponse>> createDayActivities(@NotNull @RequestBody List<@Valid NewUpdateDayActivityRequest> dayActivityDtos) throws Exception {
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
         dayActivityDtos = dayActivityDtos.stream().map(dayAct -> { dayAct.setUserName(userName); return dayAct; }).collect(Collectors.toList());
 
-
-//        log.debug("REST request to save DayActivities : {}", dayActivityDtos.size());
         List<DayActivityAggregate> dayacts = dayActivityDtos.stream().map(this.dayActivityRequestsToDomainMapper::newDayActivityRequestToDayActivity).collect(Collectors.toList());
         List<DayActivityAggregate> dayActivitiesCreated = dayActivityService.createDayActivitiesForDate(Optional.ofNullable(dayacts));
 
@@ -88,17 +85,14 @@ public class DayActivityController {
      */
     @PostMapping("/day-act-delete")
     public ResponseEntity<LocalDate> deleteAllDayActivities(@RequestBody DeleteDayActivityRequest dayActivityDTO) throws URISyntaxException {
-//        log.debug("REST request to delete DayActivities by logDate");
         // Add JWT username to request DTO
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
         dayActivityDTO.setUsername(userName);
 
         DayActivityAggregate dayActAggr = this.dayActivityRequestsToDomainMapper.deleteDayActivityRequestToDayActivity(dayActivityDTO);
         dayActivityService.deleteAllDayActivitiesByLogDateAndUserName(dayActAggr);
 
         // Just return the date for which deletion was successful
-//        DayActivityResponse response = dayActivityDomainToResponseMapper.mapToDayActivityResponse(dayAct);
-//        return ResponseEntity.created(null).body(response);
         return ResponseEntity.created(null).body(dayActivityDTO.getLogDate());
     }
 
@@ -113,7 +107,6 @@ public class DayActivityController {
      */
     @PutMapping("/day-activities")
     public ResponseEntity<DayActivityResponse> updateDayActivity(@RequestBody NewUpdateDayActivityRequest dayActivity) throws URISyntaxException {
-//        log.debug("REST request to update DayActivity : {}", dayActivity);
         if (dayActivity.getId() == null) {
 //            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -131,20 +124,14 @@ public class DayActivityController {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of dayActivities in body.
      */
     @GetMapping("/day-activities")
-    @Secured({"ROLE_USER", "ROLE_PAID"})
     public List<DayActivitiesPerTypeExtended> getAllDayActivitiesForDate(@RequestHeader Map<String, String> headers,
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("logDate") LocalDate localDate) {
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
 
         headers.forEach((key, value) -> {
             logger.info(String.format("XXX Header '%s' = %s", key, value));
         });
-
-//        log.debug("REST request to get all DayActivities by date");
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
-//        LocalDate localDate = LocalDate.parse(logDate, formatter);
-//        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 
         // Service layer provides Domain, in this case DayActivityProjection
         List<DayActivityProjection> dayActEntities1 = dayActivityService.getDayActivitiesByDateAndUserName_WithExtraInfo(localDate, userName);
@@ -165,9 +152,7 @@ public class DayActivityController {
      */
     @GetMapping("/day-activities/{id}")
     public ResponseEntity<DayActivityResponseTemp> getDayActivity(@PathVariable Long id) {
-//        log.debug("REST request to get DayActivity : {}", id);
         Optional<DayActivityAggregate> dayActivity = dayActivityService.findById(id);
-//        return ResponseUtil.wrapOrNotFound(Optional.of(dayActivityDomainToResponseMapper.mapToDayActivityResponseTemp(dayActivity.get())));
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert("applicationName", false, "ENTITY_NAME", dayActivity.get().getId().toString()))
                 .body(dayActivityDomainToResponseMapper.mapToDayActivityResponseTemp(dayActivity.get()));

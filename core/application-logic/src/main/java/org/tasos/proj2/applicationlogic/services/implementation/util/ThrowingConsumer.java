@@ -10,10 +10,8 @@ public interface ThrowingConsumer<T> extends Consumer<T> {
         try {
             acceptThrows(elem);
         } catch (final Exception e) {
-            // Implement your own exception handling logic here..
-            // For example:
+            // Implement our own exception handling logic here..
             System.out.println("handling an exception...");
-            // Or ...
             throw new RuntimeException(e);
         }
     }

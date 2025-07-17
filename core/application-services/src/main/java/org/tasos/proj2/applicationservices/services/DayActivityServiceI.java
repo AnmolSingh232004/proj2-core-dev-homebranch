@@ -1,20 +1,20 @@
 package org.tasos.proj2.applicationservices.services;
 
-import org.tasos.proj2.domain.activity.ActivityType;
-import org.tasos.proj2.domain.dayactivity.DayActivityAggregate;
-import org.tasos.proj2.domain.dayactivity.DayActivityProjection;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.tasos.proj2.domain.activity.ActivityType;
+import org.tasos.proj2.domain.dayactivity.DayActivityAggregate;
+import org.tasos.proj2.domain.dayactivity.DayActivityProjection;
+
 public interface DayActivityServiceI {
 
-    public void deleteAllDayActivitiesByLogDateAndUserName(DayActivityAggregate dayActivity);
+    void deleteAllDayActivitiesByLogDateAndUserName(DayActivityAggregate dayActivity);
 
-    public List<DayActivityAggregate> createDayActivitiesForDate(Optional<List<DayActivityAggregate>> dayActivities);
+    List<DayActivityAggregate> createDayActivitiesForDate(Optional<List<DayActivityAggregate>> dayActivities);
 
-    public void calculateNextExercises(List<DayActivityAggregate> dayActivities);
+    void calculateNextExercises(List<DayActivityAggregate> dayActivities);
 
     List<DayActivityProjection> getDayActivitiesByDateAndUserName_WithExtraInfo(LocalDate date, String userName);
 

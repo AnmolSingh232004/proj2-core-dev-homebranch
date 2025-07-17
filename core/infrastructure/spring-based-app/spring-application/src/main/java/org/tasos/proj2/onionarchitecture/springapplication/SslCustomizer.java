@@ -13,14 +13,4 @@ public class SslCustomizer implements WebServerFactoryCustomizer<ConfigurableSer
 
     }
 
-    //    @Override
-//    public void customize(ConfigurableServletWebServerFactory factory) {
-//        Ssl ssl = new Ssl();
-//        ssl.setKeyStoreType("PKCS12");
-//        ssl.setKeyStore("classpath:keystore.p12");
-//        ssl.setKeyStorePassword("proj2pass");
-//        ssl.setKeyAlias("proj2alias2");
-//        factory.setSsl(ssl);
-//        factory.setPort(8443);
-//    }
 }

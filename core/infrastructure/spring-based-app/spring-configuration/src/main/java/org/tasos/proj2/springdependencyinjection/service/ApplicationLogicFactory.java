@@ -22,6 +22,7 @@ public class ApplicationLogicFactory {
 
     @Bean
     public ActivityServiceI activityService(ActivityRepositoryI activityRepositoryI, ActivityTypeRepositoryI activityTypeRepositoryI) {
+
         return new ActivityService(activityRepositoryI, activityTypeRepositoryI);
     }
 

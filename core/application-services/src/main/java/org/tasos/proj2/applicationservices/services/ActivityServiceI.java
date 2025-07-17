@@ -1,12 +1,11 @@
 package org.tasos.proj2.applicationservices.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.tasos.proj2.domain.activity.ActivityAggregate;
 import org.tasos.proj2.domain.activity.ActivityType;
 import org.tasos.proj2.domain.activity.CreateActivityDTO;
-
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
 
 public interface ActivityServiceI {
 
@@ -27,7 +26,6 @@ public interface ActivityServiceI {
     List<String> getSubTypesByActivityTypeAndUserName(String typeId, String userName) throws Exception;
 
     List<String> getSubTypesByActivityType(String typeId) throws Exception;
-
 
     Optional<ActivityAggregate> getActivity(Long id) throws Exception;
 

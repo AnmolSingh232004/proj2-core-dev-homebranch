@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.tasos.proj2.applicationservices.services.ActivityServiceI;
 import org.tasos.proj2.applicationservices.services.DayActivityServiceI;
@@ -15,7 +15,7 @@ import org.tasos.proj2.domain.activity.ActivityType;
 import org.tasos.proj2.domain.dayactivity.DayActivityAggregate;
 import org.tasos.proj2.springrestservices.controller.util.CalendarUtil;
 import org.tasos.proj2.springrestservices.controller.util.HeaderUtil;
-import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
+//import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
 import org.tasos.proj2.springrestservices.dto.calendar.ActivityTypeCalendarDisplayDTO;
 import org.tasos.proj2.springrestservices.dto.calendar.EditPillDateDTO;
 
@@ -34,7 +34,7 @@ import java.awt.Color;
 import java.util.Random;
 
 @RestController
-@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003", "https://157.230.113.41"})
+@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003"})
 @RequestMapping("/api/proj2")
 public class CalendarController {
 
@@ -42,7 +42,6 @@ public class CalendarController {
 
     private static final String ENTITY_NAME = "dayActivity";
 
-//    @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     private final DayActivityServiceI dayActivityService;
@@ -58,15 +57,7 @@ public class CalendarController {
     @PostMapping("/day-activities/edit/date")
     public ResponseEntity<EditPillDateDTO> editDatePill(@RequestBody @Valid EditPillDateDTO editPillDate) throws Exception {
 
-        // TEST - get user id from JWT token
-//        String principal = (String) SecurityContextHolder.getContext().getAuthentication()
-//          .getPrincipal();
-//        String username = userDetails.getUsername();
-//        System.out.println("XXXXXXXXXXXX User id " + principal);
-        //
-
         log.debug("REST request to edit date of pill (ex. when dragging)");
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
         LocalDate originalDate = LocalDate.parse(editPillDate.getOrigDate(), formatter);
         LocalDate targetNewDate = LocalDate.parse(editPillDate.getTargetNewDate(), formatter);
@@ -85,29 +76,15 @@ public class CalendarController {
                 .body(editPillDate);
     }
 
-
     // Get pills for all types
     @GetMapping("/day-activities/all/calendar")
-    @Secured({"ROLE_USER", "ROLE_PAID"})
     public List<ActivityTypeCalendarDisplayDTO> getAllPillsForCalendar() throws Exception {
         log.debug("REST request to getAllPillsForCalendar");
-
-        //
-//        List<ActivityTypeCalendarDisplayDTO> allPillsUniques = new ArrayList<>();
-//        for (String type : Arrays.asList("GYM", "BASKET", "HOUSE", "CAR")) {
-//            ActivityType curType = activityService.findByTitle(type);
-//            List<DayActivityAggregate> dayActEntities = dayActivityService.findAllByActivitytypeAndUserName(curType, JWTUtils.getUserNameFromJWT());
-//            List<ActivityTypeCalendarDisplayDTO> pills = new ArrayList<>();
-//            dayActEntities.forEach(dayActivity -> pills.add(new ActivityTypeCalendarDisplayDTO(type, dayActivity.getLogDate(), CalendarUtil.getColorForPillPerActType(type))));
-//            // clear duplicates
-//            List<ActivityTypeCalendarDisplayDTO> pillsUniques = pills.stream().distinct().collect(Collectors.toList());
-//            allPillsUniques.addAll(pillsUniques);
-//        }
 
         List<ActivityTypeCalendarDisplayDTO> allPillsUniques = new ArrayList<>();
 
         // Get all user's dayActivities
-        List<DayActivityAggregate> dayActAggrs = dayActivityService.findAllByUserNameWithActivityType(JWTUtils.getUserNameFromJWT());
+        List<DayActivityAggregate> dayActAggrs = dayActivityService.findAllByUserNameWithActivityType("user");
 
         // Group dayActivities on List of Lists, by type Id
         List<List<DayActivityAggregate>> groupedByActivityTypeId = new ArrayList<>();

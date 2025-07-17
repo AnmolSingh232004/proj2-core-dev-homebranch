@@ -45,24 +45,15 @@ public class ActivityAggregate {
         return activityRootEntity.isAcceptable();
     }
 
-//    public int calculateScoringPoints() {
-//        return agencyResultRootEntity.calculateScoringPoints();
-//    }
-
     //    @AggregateBuilder
     public static class ActivityBuilder {
         private Long id;
         private String title;
         private ActivitySubType activitySubType;
         private ActivityType activityType;
-//        private PersonId personId;
-
         private String userName;
 
-        public ActivityBuilder() {
-//            this.koCriteria = new HashSet<KoCriteria>();
-//            this.warningMessages = new HashSet<WarningMessage>();
-        }
+        public ActivityBuilder() {}
 
         public ActivityBuilder withId(Long id) {
             if (id.longValue() < 0) {

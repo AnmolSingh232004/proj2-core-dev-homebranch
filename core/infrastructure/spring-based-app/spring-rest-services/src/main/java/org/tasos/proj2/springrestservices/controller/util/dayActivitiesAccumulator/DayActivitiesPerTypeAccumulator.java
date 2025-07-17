@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tasos.proj2.applicationservices.services.ActivityServiceI;
 import org.tasos.proj2.springrestservices.controller.DayActivityController;
-import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
+//import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
 import org.tasos.proj2.springrestservices.dto.activity.ActivityResponse;
 import org.tasos.proj2.springrestservices.dto.activity.ActivityTypeResponse;
 import org.tasos.proj2.springrestservices.dto.dayactivity.DayActivitiesPerTypeExtended;
@@ -93,7 +93,7 @@ public class DayActivitiesPerTypeAccumulator implements Accumulator<DayActivitie
 //        ActivityTypeResponse activityTypeResponse = new ActivityTypeResponse(Long.parseLong(incoming.getActivityTypeId()), incoming.getActivityTypeTitle(), "");
 //        ActivityResponse actResp = new ActivityResponse(Long.parseLong(incoming.getActivityId()), incoming.getActivityTitle(), incoming.getActivitySubType(), activityTypeResponse);
 
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
         try {
             List<ActivityResponse> expActivities = activityService.getExpenseActivitiesByTypeAndUserName(incoming.getActivityTypeTitle(), userName)
               .stream()

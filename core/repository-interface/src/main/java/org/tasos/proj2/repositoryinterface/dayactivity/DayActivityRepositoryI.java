@@ -20,11 +20,11 @@ public interface DayActivityRepositoryI extends DayActivityRepositoryCustom{
 
     List<DayActivityAggregate> findAllByLogDateEqualsAndUserName(LocalDate date, String userName);
 
-    // todo check !!! ActivityType changed to String activityTypeId !!!!
+    // todo !!! ActivityType changed to String activityTypeId !!!!
     // Breaks the aggregate/ddd model
     List<DayActivityAggregate> findAllByLogDateAndActivitytype(LocalDate date, String activityTypeId);
 
-    // todo check !!! ActivityType changed to String activityTypeId !!!!
+    // todo !!! ActivityType changed to String activityTypeId !!!!
     // Breaks the aggregate/ddd model
     List<DayActivityAggregate> findAllByActivitytypeAndUserName(String activityTypeId, String userName);
 

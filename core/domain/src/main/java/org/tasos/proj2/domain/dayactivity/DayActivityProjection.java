@@ -1,8 +1,8 @@
 package org.tasos.proj2.domain.dayactivity;
 
-import com.querydsl.core.annotations.QueryProjection;
-
 import java.time.LocalDate;
+
+import com.querydsl.core.annotations.QueryProjection;
 
 /**
  * DTO class which can be used by QueryDSL queries to select fields from different user related entities,

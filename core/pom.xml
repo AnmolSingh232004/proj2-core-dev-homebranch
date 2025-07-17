@@ -89,11 +89,6 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-security</artifactId>
-                <version>${version.spring.boot}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
                 <scope>test</scope>
                 <version>${version.spring.boot}</version>
@@ -115,11 +110,6 @@
                 <artifactId>hibernate-core</artifactId>
                 <version>${version.hibernate}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.hibernate</groupId>-->
-<!--                <artifactId>hibernate-jpamodelgen</artifactId>-->
-<!--                <version>${version.hibernate}</version>-->
-<!--            </dependency>-->
 
             <dependency>
                 <groupId>org.springframework</groupId>

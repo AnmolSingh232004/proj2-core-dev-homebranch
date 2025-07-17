@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.tasos.proj2.applicationservices.services.ActivityServiceI;
 import org.tasos.proj2.domain.activity.ActivityAggregate;
 import org.tasos.proj2.springrestservices.controller.util.HeaderUtil;
-import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
+//import org.tasos.proj2.springrestservices.controller.util.auth.JWTUtils;
 import org.tasos.proj2.springrestservices.dto.activity.ActivityResponse;
 import org.tasos.proj2.springrestservices.dto.activity.NewActivityRequest;
 import org.tasos.proj2.springrestservices.dto.activity.PatchActivityRequest;
@@ -24,7 +24,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003", "https://157.230.113.41"})
 @RequestMapping("/api/proj2")
 @AllArgsConstructor(onConstructor = @__(@Inject))
 public class ActivityController {
@@ -35,19 +34,11 @@ public class ActivityController {
 
     private final ActivityRequestsToDomainMapper activityRequestsToDomainMapper;
 
-    //    @Value("${jhipster.clientApp.name}")
-    //    private String applicationName;
-    //
-    //    private static final String ENTITY_NAME = "activity";
-
     @PostMapping("/activities")
     public ResponseEntity<ActivityResponse> createActivity(@RequestBody NewActivityRequest newActivityRequest) throws Exception {
-        //        log.debug("REST request to save Activity : {}", activity);
-        //        if (newActivityRequest.getId() != null) {
-        //            throw new BadRequestAlertException("A new activity cannot already have an ID", ENTITY_NAME, "idexists");
-        //        }
+
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
         newActivityRequest.setUserName(userName);
 
         ActivityAggregate newActivity = activityService.createActivity(activityRequestsToDomainMapper.newActivityRequestToActivity(newActivityRequest));
@@ -62,7 +53,6 @@ public class ActivityController {
 
     @PutMapping("/activities")
     public ResponseEntity<ActivityResponse> updateActivity(@RequestBody UpdateActivityRequest updateActivityRequest) throws Exception {
-        //        log.debug("REST request to save Activity : {}", activity);
         if (updateActivityRequest.getId() == null) {
             // todo
             //            throw new BadRequestAlertException("An existing activity should already have an ID", ENTITY_NAME, "idexists");
@@ -97,7 +87,7 @@ public class ActivityController {
     public List<ActivityResponse> getAllActivities() throws Exception {
 
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
         List<ActivityResponse> activitiesDTOs = activityService.getAllActivitiesPerUser(userName)
           .stream()
           .map(act -> this.activityDomainToResponseMapper.mapToActivityResponse(act))
@@ -112,9 +102,8 @@ public class ActivityController {
      */
     @GetMapping("/activities/gym")
     public List<ActivityResponse> getAllGymActivities() throws Exception {
-        //        log.debug("REST request to get all gym Activities");
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
         List<ActivityResponse> gymActivities = activityService.getAllGymActivitiesByUser(userName)
           .stream()
           .map(act -> this.activityDomainToResponseMapper.mapToActivityResponse(act))
@@ -128,9 +117,8 @@ public class ActivityController {
      */
     @GetMapping("/activities/expense")
     public List<ActivityResponse> getExpenseActivitiesByType(@RequestParam(name = "type") String activityType) throws Exception {
-        //        log.debug("REST request to get all exp Activities");
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
         List<ActivityResponse> expActivities = activityService.getExpenseActivitiesByTypeAndUserName(activityType, userName)
           .stream()
           .map(act -> this.activityDomainToResponseMapper.mapToActivityResponse(act))
@@ -144,9 +132,8 @@ public class ActivityController {
      */
     @GetMapping("/activities/subtypes/{typeId}")
     public List<String> getSubTypesByActivityType(@PathVariable String typeId) throws Exception {
-        //        log.debug("REST request to getSubTypesByActivityType");
         // Add JWT username
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
         List<String> subTypesOfActivityType = activityService.getSubTypesByActivityTypeAndUserName(typeId, userName);
         return subTypesOfActivityType;
     }
@@ -159,7 +146,6 @@ public class ActivityController {
      */
     @GetMapping("/activities/{id}")
     public ResponseEntity<ActivityResponse> getActivity(@PathVariable Long id) throws Exception {
-        //        log.debug("REST request to get Activity : {}", id);
         ActivityResponse activity = activityDomainToResponseMapper.mapToActivityResponse(activityService.getActivity(id)
           .get());
         return ResponseEntity.ok(activity);
@@ -173,7 +159,6 @@ public class ActivityController {
      */
     @DeleteMapping("/activities/{id}")
     public ResponseEntity<Void> deleteActivity(@PathVariable Long id) throws Exception {
-        //        log.debug("REST request to delete Activity : {}", id);
         activityService.deleteActivity(id);
         return ResponseEntity.noContent()
           .headers(HeaderUtil.createEntityDeletionAlert("applicationName", false, "ENTITY_NAME", id.toString()))
@@ -183,7 +168,7 @@ public class ActivityController {
     @PostMapping(path = "/activities/create")
     public ResponseEntity<String> createActivity(@RequestBody CreateActivityDTO createActivityDTO) throws Exception {
 
-        String userName = JWTUtils.getUserNameFromJWT();
+        String userName = "user";
         createActivityDTO.setUserName(userName);
 
         ActivityAggregate newActivity = activityService.createActivity(activityRequestsToDomainMapper.newCreateActivityRequestToActivity(createActivityDTO));

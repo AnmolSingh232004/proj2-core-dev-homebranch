@@ -1,6 +1,15 @@
 package org.tasos.proj2.applicationlogic.services.implementation;
 
-import org.tasos.proj2.applicationlogic.services.implementation.util.Helper;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Predicate;
+
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+
 import org.tasos.proj2.applicationservices.services.DayActivityServiceI;
 import org.tasos.proj2.domain.activity.ActivityAggregate;
 import org.tasos.proj2.domain.activity.ActivityType;
@@ -13,12 +22,6 @@ import org.tasos.proj2.repositoryinterface.activity.ActivityRepositoryI;
 import org.tasos.proj2.repositoryinterface.dayactivity.DayActivityRepositoryI;
 import org.tasos.proj2.repositoryinterface.globalsessionflags.GlobalFlagRepositoryI;
 import org.tasos.proj2.repositoryinterface.globalsessionflags.SessionFlagDatesRepositoryI;
-
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.util.*;
-import java.util.function.Predicate;
 
 public class DayActivityService implements DayActivityServiceI {
 
@@ -55,7 +58,7 @@ public class DayActivityService implements DayActivityServiceI {
 
 
     /**
-     * GPT-3 generated
+     *
      *
      This code is an override of the createDayActivitiesForDate() method, which takes an Optional<List<DayActivityAggregate>> as a parameter.
 
@@ -86,7 +89,7 @@ public class DayActivityService implements DayActivityServiceI {
                 // We need .flatmap() gets rid of Optional<>, when using it with Optional.  e.g. Optional<List<String>>
                 .flatMap(list -> list.stream().limit(1).filter(Objects::nonNull).findFirst())
                 .filter(dayAct -> dayAct.getRecurringInfo() != null && dayAct.getRecurringInfo().getRecurEvery() != 0 && dayAct.getRecurringInfo().getRecurPeriod() != 0)
-                // Case: has recurring info
+                // Case: has recurring info - so basically if Gym related
                 .map(
                         dayAct -> {
                             DayActivityRecurringInfo recurringInfo = dayAct.getRecurringInfo();

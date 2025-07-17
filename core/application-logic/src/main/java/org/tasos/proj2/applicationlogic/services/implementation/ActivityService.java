@@ -1,5 +1,13 @@
 package org.tasos.proj2.applicationlogic.services.implementation;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+
 import org.tasos.proj2.applicationlogic.services.implementation.util.ThrowingConsumer;
 import org.tasos.proj2.applicationservices.services.ActivityServiceI;
 import org.tasos.proj2.domain.activity.ActivityAggregate;
@@ -7,11 +15,6 @@ import org.tasos.proj2.domain.activity.ActivityType;
 import org.tasos.proj2.domain.activity.CreateActivityDTO;
 import org.tasos.proj2.repositoryinterface.activity.ActivityRepositoryI;
 import org.tasos.proj2.repositoryinterface.activity.ActivityTypeRepositoryI;
-
-import javax.inject.Inject;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 public class ActivityService implements ActivityServiceI {
 
@@ -25,15 +28,6 @@ public class ActivityService implements ActivityServiceI {
         this.activityRepository = activityRepository;
         this.activityTypeRepository = activityTypeRepository;
     }
-
-    // ---- Old -----
-//    @Override
-//    public ActivityAggregate createActivity(ActivityAggregate activity) throws Exception {
-//        if (activity.getId() != null) {
-//            throw new Exception("A new activity cannot already have an ID");
-//        }
-//        return this.activityRepository.saveActivity(activity);
-//    }
 
 
     @Override
@@ -117,13 +111,11 @@ public class ActivityService implements ActivityServiceI {
         if (!createActivityDTO.getNewSubType().equalsIgnoreCase("")) {
             activity = new ActivityAggregate.ActivityBuilder()
                     .withId(Long.parseLong(createActivityDTO.getActTypeId()))
-//                .withActivityType(new Activit)
                     .withActivitySubType(createActivityDTO.getNewSubType())
                     .withTitle(createActivityDTO.getNewActName()).build();
         } else if (!createActivityDTO.getSelectedSubType().equalsIgnoreCase("")) {
             activity = new ActivityAggregate.ActivityBuilder()
                     .withId(Long.parseLong(createActivityDTO.getActTypeId()))
-//                .withActivityType(new Activit)
                     .withActivitySubType(createActivityDTO.getSelectedSubType())
                     .withTitle(createActivityDTO.getNewActName()).build();
         }
