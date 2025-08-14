@@ -23,7 +23,10 @@
   - Username: user
   - Password: pass
 
+- Or use Database tool of Intellij if you have paid version
+
 ### Postman setup
 
 - Install postman locally
+- Import proj2 collection
 - No auth/jwt needed. We hardcode user "user" for dev purposes.
