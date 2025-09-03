@@ -102,4 +102,12 @@ public class ActivityRepository implements ActivityRepositoryI {
         activityEntityRepository.deleteById(id);
     }
 
+    @Override
+    public List<ActivityAggregate> findAll() {
+        List<ActivityEntity> activities = activityEntityRepository.findAll();
+        return activities.stream()
+                .map(activityDomainToEntityMapper::activityEntityToActivity)
+                .collect(Collectors.toList());
+    }
+
 }

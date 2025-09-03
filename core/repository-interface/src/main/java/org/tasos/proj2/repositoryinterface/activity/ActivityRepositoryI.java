@@ -33,4 +33,6 @@ public interface ActivityRepositoryI {
     Optional<ActivityAggregate> findById(Long activityId);
 
     void deleteById(Long id);
+
+    List<ActivityAggregate> findAll();
 }

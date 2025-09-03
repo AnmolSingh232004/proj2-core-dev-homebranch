@@ -1,5 +1,6 @@
 package org.tasos.proj2.springrestservices.controller;
 
+import Dto.CategoryDto;
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -177,6 +178,12 @@ public class ActivityController {
         String activityId = Long.toString(newActivity.getId());
 
         return ResponseEntity.ok(activityId);
+    }
+
+    @GetMapping(path = "/activities/grouped")
+    public ResponseEntity<List<CategoryDto>> getAllActivityGrouped() throws Exception {
+        List<CategoryDto> categories = activityService.getUserActivitiesGrouped();
+        return ResponseEntity.ok(categories);
     }
 
 

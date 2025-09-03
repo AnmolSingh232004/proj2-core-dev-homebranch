@@ -1,13 +1,13 @@
 package org.tasos.proj2.applicationlogic.services.implementation;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import Dto.ActivityDto;
+import Dto.ActivityTypeDto;
 import org.tasos.proj2.applicationlogic.services.implementation.util.ThrowingConsumer;
 import org.tasos.proj2.applicationservices.services.ActivityServiceI;
 import org.tasos.proj2.domain.activity.ActivityAggregate;
@@ -15,6 +15,7 @@ import org.tasos.proj2.domain.activity.ActivityType;
 import org.tasos.proj2.domain.activity.CreateActivityDTO;
 import org.tasos.proj2.repositoryinterface.activity.ActivityRepositoryI;
 import org.tasos.proj2.repositoryinterface.activity.ActivityTypeRepositoryI;
+import Dto.CategoryDto;
 
 public class ActivityService implements ActivityServiceI {
 
@@ -126,5 +127,63 @@ public class ActivityService implements ActivityServiceI {
     public ActivityType findByTitle(String title) throws Exception {
         return this.activityTypeRepository.findByTitle(title);
     }
+
+    @Override
+    public List<CategoryDto> getUserActivitiesGrouped() {
+        // gets all user activities
+        // bug with findAll method
+        List<ActivityAggregate> allActivities = activityRepository.findAll();
+
+        if (allActivities == null || allActivities.isEmpty()) return Collections.emptyList();
+
+        // Was returning nothing, fixed by fixing the implementation of activityRepository
+        System.out.println("ALL ACTIVITIES LIST SIZE " + allActivities.size());
+
+                Map<Long, CategoryDto> map = new LinkedHashMap<>(); // stable order
+
+
+        for (int i=0; i<allActivities.size(); i++) {
+            ActivityAggregate x = allActivities.get(i);
+
+            Long id  = x.getActivityTypeId();
+            String title = x.getActivityTypeTitle();
+            String description =  x.getActivityTypeDescription();
+
+            CategoryDto cat = map.get(id);
+
+            if (cat == null) {
+                cat = new CategoryDto();
+                cat.setActivityTypeId(id);
+                cat.setActivityTypeTitle(title);
+                cat.setActivityTypeDescription(description);
+                cat.setActivities(new ArrayList<>());
+                map.put(id, cat);
+            }
+                // map aggregate -> ActivityDto using helper method
+                ActivityDto actDto = aggregateToActivityDto(x);
+                cat.getActivities().add(actDto);
+
+        }
+
+        // Return categories in insertion order
+        return new ArrayList<>(map.values());
+    }
+
+
+    public ActivityDto aggregateToActivityDto(ActivityAggregate activity) {
+        ActivityDto dto = new  ActivityDto();
+        dto.setActivityId(activity.getId());
+        dto.setActivityTitle(activity.getTitle());
+        dto.setActivitySubtype(activity.getActivitySubType());
+
+        ActivityTypeDto atd = new  ActivityTypeDto();
+        atd.setActivityTypeId(activity.getActivityTypeId());
+        atd.setActivityTypeTitle(activity.getActivityTypeTitle());
+
+        dto.setActivityTypeDto(atd);
+
+        return dto;
+    }
+
 
 }
