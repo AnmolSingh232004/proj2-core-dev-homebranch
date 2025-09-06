@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ActivityTypeDto {
 
-    private Long activityTypeId;
-    private String activityTypeTitle;
+    private Long id;
+    private String title;
 }

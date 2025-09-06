@@ -401,4 +401,24 @@ CREATE TABLE IF NOT EXISTS `session_flag_dates` (
 -- /*!40000 ALTER TABLE `session_flag_dates` ENABLE KEYS */;
 -- UNLOCK TABLES;
 
+INSERT INTO activity_type (description, title, user) VALUES
+                                                         ('FITNESS desc','FITNESS','tasos'),
+                                                         ('CAR desc','CAR','tasos'),
+                                                         ('HOUSE desc','HOUSE','anmol'),
+                                                         ('HEALTH desc','HEALTH','joe'),
+                                                         ('VACATION desc','VACATION','bill');
+
+
+INSERT INTO activity (activity_sub_type, title, activitytype_id, user) VALUES
+                                                                           ('CARDIO','Cycling',(SELECT id FROM activity_type WHERE title='FITNESS' AND user='tasos' LIMIT 1),'tasos'),
+('CARDIO','Swimming',(SELECT id FROM activity_type WHERE title='FITNESS' AND user='tasos' LIMIT 1),'tasos'),
+('MAINTENANCE','Tire Rotation',(SELECT id FROM activity_type WHERE title='CAR' AND user='tasos' LIMIT 1),'tasos'),
+('INSPECTION','Emissions Test',(SELECT id FROM activity_type WHERE title='CAR' AND user='tasos' LIMIT 1),'tasos'),
+('CLEANING','Mop Kitchen Floor',(SELECT id FROM activity_type WHERE title='HOUSE' AND user='anmol' LIMIT 1),'anmol'),
+('REPAIR','Fix Door Hinge',(SELECT id FROM activity_type WHERE title='HOUSE' AND user='anmol' LIMIT 1),'anmol'),
+('CHECKUP','Vision Test',(SELECT id FROM activity_type WHERE title='HEALTH' AND user='joe' LIMIT 1),'joe'),
+('WELLNESS','Yoga Session',(SELECT id FROM activity_type WHERE title='HEALTH' AND user='joe' LIMIT 1),'joe'),
+('TRAVEL','Train Reservation',(SELECT id FROM activity_type WHERE title='VACATION' AND user='bill' LIMIT 1),'bill'),
+('RELAXATION','Spa Day',(SELECT id FROM activity_type WHERE title='VACATION' AND user='bill' LIMIT 1),'bill');
+
 

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import Dto.ActivityDto;
 import Dto.ActivityTypeDto;
+import Dto.CategoryResponseDto;
 import org.tasos.proj2.applicationlogic.services.implementation.util.ThrowingConsumer;
 import org.tasos.proj2.applicationservices.services.ActivityServiceI;
 import org.tasos.proj2.domain.activity.ActivityAggregate;
@@ -129,61 +130,75 @@ public class ActivityService implements ActivityServiceI {
     }
 
     @Override
-    public List<CategoryDto> getUserActivitiesGrouped() {
+    public CategoryResponseDto getUserActivitiesGrouped() {
         // gets all user activities
-        // bug with findAll method
         List<ActivityAggregate> allActivities = activityRepository.findAll();
-
-        if (allActivities == null || allActivities.isEmpty()) return Collections.emptyList();
-
-        // Was returning nothing, fixed by fixing the implementation of activityRepository
-        System.out.println("ALL ACTIVITIES LIST SIZE " + allActivities.size());
-
-                Map<Long, CategoryDto> map = new LinkedHashMap<>(); // stable order
-
-
-        for (int i=0; i<allActivities.size(); i++) {
-            ActivityAggregate x = allActivities.get(i);
-
+        // if repo doesn't return with proper list
+        if (allActivities == null || allActivities.isEmpty()) return null;
+        Map<Long, CategoryDto> map = new LinkedHashMap<>(); // stable order
+        for (ActivityAggregate x : allActivities) {
             Long id  = x.getActivityTypeId();
             String title = x.getActivityTypeTitle();
             String description =  x.getActivityTypeDescription();
 
             CategoryDto cat = map.get(id);
-
             if (cat == null) {
                 cat = new CategoryDto();
-                cat.setActivityTypeId(id);
-                cat.setActivityTypeTitle(title);
-                cat.setActivityTypeDescription(description);
+                cat.setId(id);
+                cat.setTitle(title);
+                cat.setDescription(description);
                 cat.setActivities(new ArrayList<>());
                 map.put(id, cat);
             }
-                // map aggregate -> ActivityDto using helper method
-                ActivityDto actDto = aggregateToActivityDto(x);
-                cat.getActivities().add(actDto);
-
+            // map aggregate -> ActivityDto using helper method
+            ActivityDto actDto = aggregateToActivityDto(x);
+            cat.getActivities().add(actDto);
         }
-
+        CategoryResponseDto res = new CategoryResponseDto();
+        res.setCategories(new ArrayList<>(map.values()));
         // Return categories in insertion order
-        return new ArrayList<>(map.values());
+        return res;
     }
-
 
     public ActivityDto aggregateToActivityDto(ActivityAggregate activity) {
         ActivityDto dto = new  ActivityDto();
-        dto.setActivityId(activity.getId());
-        dto.setActivityTitle(activity.getTitle());
+        dto.setId(activity.getId());
+        dto.setTitle(activity.getTitle());
         dto.setActivitySubtype(activity.getActivitySubType());
 
         ActivityTypeDto atd = new  ActivityTypeDto();
-        atd.setActivityTypeId(activity.getActivityTypeId());
-        atd.setActivityTypeTitle(activity.getActivityTypeTitle());
+        atd.setId(activity.getActivityTypeId());
+        atd.setTitle(activity.getActivityTypeTitle());
 
-        dto.setActivityTypeDto(atd);
+        dto.setActivityType(atd);
 
         return dto;
     }
 
+    @Override
+    public CategoryResponseDto getUserActivitiesGroupedUser(String userName) {
+        List<ActivityAggregate> activities = activityRepository.findAllByUserName(userName);
+        CategoryResponseDto res = new CategoryResponseDto();
+        if (activities == null || activities.isEmpty()) {
+            res.setCategories(Collections.emptyList());
+            return res;
+        }
+        Map<Long, CategoryDto> map = new LinkedHashMap<>();
+        for (ActivityAggregate x : activities) {
+            Long id = x.getActivityTypeId();
+            CategoryDto cat = map.get(id);
+            if (cat == null) {
+                cat = new CategoryDto();
+                cat.setId(id);
+                cat.setTitle(x.getActivityTypeTitle());
+                cat.setDescription(x.getActivityTypeDescription());
+                cat.setActivities(new ArrayList<>());
+                map.put(id, cat);
+            }
+            cat.getActivities().add(aggregateToActivityDto(x));
+        }
+        res.setCategories(new ArrayList<>(map.values()));
+        return res;
+    }
 
 }

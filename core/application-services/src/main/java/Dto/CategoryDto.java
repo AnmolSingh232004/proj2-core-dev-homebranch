@@ -13,8 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDto {
-    private Long activityTypeId;
-    private String activityTypeTitle;
-    private String activityTypeDescription;
+    private Long id;
+    private String title;
+    private String description;
     private List<ActivityDto> activities;
 }
