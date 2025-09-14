@@ -187,12 +187,12 @@ public class ActivityController {
         return ResponseEntity.ok(categories);
     }
 
-    @GetMapping(path = "/activities/groupedUser")
-    public ResponseEntity<CategoryResponseDto> getAllActivityGroupedUser(
-            @RequestParam(name = "userName") String userName) throws Exception {
+    @GetMapping(path = "/activities/grouped/me")
+    public ResponseEntity<CategoryResponseDto> getAllActivityGroupedByCategoriesForUser() throws Exception {
+        // Add JWT username
+        String userName = "user";
         CategoryResponseDto categories = activityService.getUserActivitiesGroupedUser(userName);
         return ResponseEntity.ok(categories);
     }
-
 
 }

@@ -43,6 +43,7 @@ INSERT IGNORE INTO `activity_type` VALUES (1,'FITNESS desc','FITNESS',NULL),(2,'
 /*!40000 ALTER TABLE `activity_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
+UPDATE activity_type SET user = 'user' WHERE id IN (1,2,3,4,5) AND user IS NULL;
 
 --
 -- Table structure for table `activity`
