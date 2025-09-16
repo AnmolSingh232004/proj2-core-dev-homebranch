@@ -1,5 +1,7 @@
 package org.tasos.proj2.springrestservices.controller;
 
+import Dto.CategoryDto;
+import Dto.CategoryResponseDto;
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -179,5 +181,18 @@ public class ActivityController {
         return ResponseEntity.ok(activityId);
     }
 
+    @GetMapping(path = "/activities/grouped")
+    public ResponseEntity<CategoryResponseDto> getAllActivityGrouped() throws Exception {
+        CategoryResponseDto categories = activityService.getUserActivitiesGrouped();
+        return ResponseEntity.ok(categories);
+    }
+
+    @GetMapping(path = "/activities/grouped/me")
+    public ResponseEntity<CategoryResponseDto> getAllActivityGroupedByCategoriesForUser() throws Exception {
+        // Add JWT username
+        String userName = "user";
+        CategoryResponseDto categories = activityService.getUserActivitiesGroupedUser(userName);
+        return ResponseEntity.ok(categories);
+    }
 
 }

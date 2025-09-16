@@ -43,6 +43,7 @@ INSERT IGNORE INTO `activity_type` VALUES (1,'FITNESS desc','FITNESS',NULL),(2,'
 /*!40000 ALTER TABLE `activity_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
+UPDATE activity_type SET user = 'user' WHERE id IN (1,2,3,4,5) AND user IS NULL;
 
 --
 -- Table structure for table `activity`
@@ -400,5 +401,25 @@ CREATE TABLE IF NOT EXISTS `session_flag_dates` (
 -- INSERT INTO `session_flag_dates` VALUES (1,'2020-11-14','2020-03-14',1),(2,'2022-12-11','2021-01-01',1),(3,NULL,'2021-03-16',1),(4,NULL,'2022-12-04',1),(5,NULL,'2022-12-04',1),(6,NULL,'2022-12-04',1),(7,NULL,'2022-12-04',1),(8,NULL,'2022-12-04',1),(9,NULL,'2022-11-30',1),(10,NULL,'2022-12-13',1),(11,'2022-04-05','2022-04-10',3),(15,'2023-02-14','2023-02-07',3),(17,'2023-02-23','2023-02-16',3),(18,'2023-04-10','2023-03-21',3),(19,'2023-04-22','2023-04-12',3),(25,'2023-06-09','2023-06-05',3),(26,'2023-06-08','2023-06-07',24),(27,'2023-06-12','2023-06-10',24),(28,'2023-07-08','2023-06-14',24),(29,'2023-08-09','2023-08-09',3),(30,'2023-08-11','2023-08-04',24),(31,NULL,'2023-08-11',3);
 -- /*!40000 ALTER TABLE `session_flag_dates` ENABLE KEYS */;
 -- UNLOCK TABLES;
+
+INSERT INTO activity_type (description, title, user) VALUES
+                                                         ('FITNESS desc','FITNESS','tasos'),
+                                                         ('CAR desc','CAR','tasos'),
+                                                         ('HOUSE desc','HOUSE','anmol'),
+                                                         ('HEALTH desc','HEALTH','joe'),
+                                                         ('VACATION desc','VACATION','bill');
+
+
+INSERT INTO activity (activity_sub_type, title, activitytype_id, user) VALUES
+                                                                           ('CARDIO','Cycling',(SELECT id FROM activity_type WHERE title='FITNESS' AND user='tasos' LIMIT 1),'tasos'),
+('CARDIO','Swimming',(SELECT id FROM activity_type WHERE title='FITNESS' AND user='tasos' LIMIT 1),'tasos'),
+('MAINTENANCE','Tire Rotation',(SELECT id FROM activity_type WHERE title='CAR' AND user='tasos' LIMIT 1),'tasos'),
+('INSPECTION','Emissions Test',(SELECT id FROM activity_type WHERE title='CAR' AND user='tasos' LIMIT 1),'tasos'),
+('CLEANING','Mop Kitchen Floor',(SELECT id FROM activity_type WHERE title='HOUSE' AND user='anmol' LIMIT 1),'anmol'),
+('REPAIR','Fix Door Hinge',(SELECT id FROM activity_type WHERE title='HOUSE' AND user='anmol' LIMIT 1),'anmol'),
+('CHECKUP','Vision Test',(SELECT id FROM activity_type WHERE title='HEALTH' AND user='joe' LIMIT 1),'joe'),
+('WELLNESS','Yoga Session',(SELECT id FROM activity_type WHERE title='HEALTH' AND user='joe' LIMIT 1),'joe'),
+('TRAVEL','Train Reservation',(SELECT id FROM activity_type WHERE title='VACATION' AND user='bill' LIMIT 1),'bill'),
+('RELAXATION','Spa Day',(SELECT id FROM activity_type WHERE title='VACATION' AND user='bill' LIMIT 1),'bill');
 
 

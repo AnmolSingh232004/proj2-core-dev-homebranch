@@ -3,6 +3,8 @@ package org.tasos.proj2.applicationservices.services;
 import java.util.List;
 import java.util.Optional;
 
+import Dto.CategoryDto;
+import Dto.CategoryResponseDto;
 import org.tasos.proj2.domain.activity.ActivityAggregate;
 import org.tasos.proj2.domain.activity.ActivityType;
 import org.tasos.proj2.domain.activity.CreateActivityDTO;
@@ -37,4 +39,7 @@ public interface ActivityServiceI {
 
     List<ActivityAggregate> getAllActivitiesPerUser(String userName) throws Exception;
 
+    CategoryResponseDto getUserActivitiesGrouped() throws Exception;
+
+    CategoryResponseDto getUserActivitiesGroupedUser(String username) throws Exception;
 }

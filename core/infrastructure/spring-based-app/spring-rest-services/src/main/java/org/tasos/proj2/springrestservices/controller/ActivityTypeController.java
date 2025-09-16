@@ -54,7 +54,6 @@ public class ActivityTypeController {
     public List<ActivityTypeResponse> getAllActivityTypesForUser() {
         // Add JWT username
         String userName = "user";
-
         List<ActivityType> userTypes = activityTypeService.getAllActivityTypesForUser(userName);
 
         List<ActivityTypeResponse> response = userTypes.stream()
