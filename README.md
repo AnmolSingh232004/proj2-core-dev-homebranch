@@ -30,3 +30,4 @@
 - Install postman locally
 - Import proj2 collection
 - No auth/jwt needed. We hardcode user "user" for dev purposes."# proj2-core-dev-homebranch" 
+"# proj2-core-dev-homebranch" 
