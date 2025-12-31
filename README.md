@@ -1,33 +1,126 @@
-### Setup
+### \# Multi-Domain Activity \& Session Management Platform (Backend)
 
-- Install Docker Desktop on Windows
-- Run docker-compose.yml (core/infrastructure/spring-based-app/spring-application/src/main/resources/docker-compose.yml)
+### 
 
-### Build project
+### A backend system built using \*\*Java\*\* and \*\*Spring Boot\*\* that supports \*\*generic activity tracking\*\* and \*\*session lifecycle management\*\* across multiple domains such as fitness, health, and lifestyle.
 
-- mvn clean install
+### 
 
-### Run project
+### The application follows \*\*Onion Architecture\*\* to ensure clean separation of concerns, maintainability, and extensibility.
 
-- devDockerDb profile is activated (check application.properties)
-- Run org.tasos.proj2.onionarchitecture.springapplication.Application class
-- This triggers schema.sql to initialize and populate the database with test data.
+### 
 
+### ---
 
-### Connect to docker container database
+### 
 
-- Install MySQLWorkbench on Windows
-- New connection with:
-  - Host: 127.0.0.1
-  - Port: 3305
-  - Username: user
-  - Password: pass
+### \## Tech Stack
 
-- Or use Database tool of Intellij if you have paid version
+### 
 
-### Postman setup
+### \- Java  
 
-- Install postman locally
-- Import proj2 collection
-- No auth/jwt needed. We hardcode user "user" for dev purposes."# proj2-core-dev-homebranch" 
-"# proj2-core-dev-homebranch" 
+### \- Spring Boot  
+
+### \- Spring Web  
+
+### \- Spring Data JPA  
+
+### \- Maven  
+
+### \- Docker \& Docker Compose  
+
+### \- Relational Database (Dockerized)  
+
+### \- Postman (API testing)
+
+### 
+
+### ---
+
+### 
+
+### \## Architecture Overview
+
+### 
+
+### The backend is structured using \*\*Onion Architecture\*\*, with clear boundaries between layers:
+
+### 
+
+### \### Domain Layer
+
+### \- Core business logic
+
+### \- Domain aggregates and entities
+
+### \- Framework-independent
+
+### 
+
+### \### Application Services Layer
+
+### \- Use-case orchestration
+
+### \- Business workflow coordination
+
+### 
+
+### \### Infrastructure Layer
+
+### \- Database access
+
+### \- Persistence and external integrations
+
+### 
+
+### \### REST Layer
+
+### \- Controllers
+
+### \- DTOs
+
+### \- API contracts
+
+### 
+
+### This design improves testability and allows independent evolution of each layer.
+
+### 
+
+### ---
+
+### 
+
+### \## Local Development Setup
+
+### 
+
+### \### Prerequisites
+
+### 
+
+### \- Java (JDK 17 or compatible)
+
+### \- Maven
+
+### \- Docker \& Docker Compose
+
+### \- Postman (optional)
+
+### 
+
+### ---
+
+### 
+
+### \### Build the Project
+
+### 
+
+### ```bash
+
+### mvn clean install
+
+### 
+
