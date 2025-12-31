@@ -29,8 +29,8 @@ import org.tasos.proj2.springrestservices.mapper.ActivityTypeDomainToResponseMap
 import lombok.AllArgsConstructor;
 
 @RestController
-@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003"})
-@RequestMapping("/api/proj2")
+@CrossOrigin(origins = {"x"}) //urls removed
+@RequestMapping()
 @AllArgsConstructor(onConstructor = @__(@Inject))
 public class ActivityTypeController {
 
@@ -40,7 +40,7 @@ public class ActivityTypeController {
 
     private final ActivityTypeDomainToResponseMapper mapper;
 
-    @PostMapping("/activity-types/create")
+    @PostMapping()
     public ResponseEntity<String> createActivityType(@RequestBody String newActType) throws URISyntaxException {
         // Add JWT username
         String userName = "user";
@@ -50,7 +50,7 @@ public class ActivityTypeController {
         return ResponseEntity.created(null).body(actTypeCreated);
     }
 
-    @GetMapping("/activity-types")
+    @GetMapping()
     public List<ActivityTypeResponse> getAllActivityTypesForUser() {
         // Add JWT username
         String userName = "user";
@@ -63,7 +63,7 @@ public class ActivityTypeController {
         return response;
     }
 
-    @DeleteMapping("/activity-types/{id}")
+    @DeleteMapping()
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) throws Exception {
         activityTypeService.deleteActivityType(id);
         return ResponseEntity.noContent()

@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 @RestController
-@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003"})
-@RequestMapping("/api/proj2")
+@CrossOrigin(origins = {"x"})
+@RequestMapping()
 public class SessionFlagDatesController {
 
     private final Logger log = LoggerFactory.getLogger(SessionFlagDatesController.class);
@@ -41,7 +41,7 @@ public class SessionFlagDatesController {
         this.sessionFlagDatesGlobalFlagService = sessionFlagDatesGlobalFlagService;
     }
 
-    @PostMapping("/session-flag-dates/gym/end")
+    @PostMapping()
     public SessionFlagDatesResponse endGymSession(@RequestBody SessionFlagDatesRequest sessionFlagDatesReq) throws URISyntaxException {
 
         // Add JWT username
@@ -61,7 +61,7 @@ public class SessionFlagDatesController {
 
     }
 
-    @PostMapping("/session-flag-dates/gym/start")
+    @PostMapping()
     public SessionFlagDatesResponse startGymSession(@RequestBody SessionFlagDatesRequest sessionFlagDatesReq) throws URISyntaxException {
 
         // Add JWT username
@@ -85,7 +85,7 @@ public class SessionFlagDatesController {
      *  Decide if editable (current date > gym session end)
      *  Get last end date from session_flag_dates
      */
-    @GetMapping("/session-flag-dates/gym-session/last/end-date")
+    @GetMapping()
     public ResponseEntity<SessionFlagDatesResponse> getLastEndDateOfGymSessions() {
         log.debug("REST request to get end date of last gym session");
 
@@ -112,7 +112,7 @@ public class SessionFlagDatesController {
 
     // ---------------  Global Flag --------------- //
 
-    @PostMapping("/global-flags")
+    @PostMapping()
     public ResponseEntity<GlobalFlagResponse> createGlobalFlag(@RequestBody GlobalFlagRequest globalFlagReq) throws URISyntaxException {
 
         // Add JWT username
@@ -132,7 +132,7 @@ public class SessionFlagDatesController {
                 .body(resp);
     }
 
-    @PutMapping("/global-flags")
+    @PutMapping()
     public ResponseEntity<GlobalFlagResponse> updateGlobalFlag(@RequestBody GlobalFlagRequest globalFlagReq) throws URISyntaxException {
 
         // Add JWT username
@@ -153,7 +153,7 @@ public class SessionFlagDatesController {
     }
 
 
-    @GetMapping("/global-flags")
+    @GetMapping()
     public List<GlobalFlagResponse> getAllGlobalFlagsPerUser() {
         // Add JWT username
        String userName = "user";
@@ -168,7 +168,7 @@ public class SessionFlagDatesController {
     }
 
     // Not used
-    @GetMapping("/global-flags/{id}")
+    @GetMapping()
     public ResponseEntity<GlobalFlagResponse> getGlobalFlag(@PathVariable Long id) throws Exception {
         GlobalFlagDomain globalFlag = sessionFlagDatesGlobalFlagService.getGlobalFlag(id);
         return ResponseUtil.wrapOrNotFound(Optional.of(getGlobalFlagResponse(globalFlag)));

@@ -32,8 +32,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003"})
-@RequestMapping("/api/proj2")
+@CrossOrigin(origins = {"x"})
+@RequestMapping()
 @AllArgsConstructor(onConstructor = @__(@Inject))
 public class DayActivityController {
 
@@ -55,7 +55,7 @@ public class DayActivityController {
      * @return
      * @throws URISyntaxException
      */
-    @PostMapping("/day-activities")
+    @PostMapping()
     public ResponseEntity<List<DayActivityResponse>> createDayActivities(@NotNull @RequestBody List<@Valid NewUpdateDayActivityRequest> dayActivityDtos) throws Exception {
         // Add JWT username
         String userName = "user";
@@ -83,7 +83,7 @@ public class DayActivityController {
      * @return
      * @throws URISyntaxException
      */
-    @PostMapping("/day-act-delete")
+    @PostMapping()
     public ResponseEntity<LocalDate> deleteAllDayActivities(@RequestBody DeleteDayActivityRequest dayActivityDTO) throws URISyntaxException {
         // Add JWT username to request DTO
         String userName = "user";
@@ -105,7 +105,7 @@ public class DayActivityController {
      * or with status {@code 500 (Internal Server Error)} if the dayActivity couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/day-activities")
+    @PutMapping()
     public ResponseEntity<DayActivityResponse> updateDayActivity(@RequestBody NewUpdateDayActivityRequest dayActivity) throws URISyntaxException {
         if (dayActivity.getId() == null) {
 //            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -123,7 +123,7 @@ public class DayActivityController {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of dayActivities in body.
      */
-    @GetMapping("/day-activities")
+    @GetMapping()
     public List<DayActivitiesPerTypeExtended> getAllDayActivitiesForDate(@RequestHeader Map<String, String> headers,
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("logDate") LocalDate localDate) {
         // Add JWT username
@@ -150,7 +150,7 @@ public class DayActivityController {
      * @param id the id of the dayActivity to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the dayActivity, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/day-activities/{id}")
+    @GetMapping()
     public ResponseEntity<DayActivityResponseTemp> getDayActivity(@PathVariable Long id) {
         Optional<DayActivityAggregate> dayActivity = dayActivityService.findById(id);
         return ResponseEntity.ok()

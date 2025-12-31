@@ -26,7 +26,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/proj2")
+@RequestMapping() // controllers ip removed for security purposes on my fork
 @AllArgsConstructor(onConstructor = @__(@Inject))
 public class ActivityController {
 
@@ -36,7 +36,7 @@ public class ActivityController {
 
     private final ActivityRequestsToDomainMapper activityRequestsToDomainMapper;
 
-    @PostMapping("/activities")
+    @PostMapping()
     public ResponseEntity<ActivityResponse> createActivity(@RequestBody NewActivityRequest newActivityRequest) throws Exception {
 
         // Add JWT username
@@ -47,13 +47,13 @@ public class ActivityController {
 
         ActivityResponse response = activityDomainToResponseMapper.mapToActivityResponse(newActivity);
 
-        return ResponseEntity.created(new URI("/api/activities/" + response.getId()))
+        return ResponseEntity.created(new URI("." + response.getId()))
           .headers(HeaderUtil.createEntityCreationAlert("applicationName", false, "ENTITY_NAME", response.getId()
             .toString()))
           .body(response);
     }
 
-    @PutMapping("/activities")
+    @PutMapping()
     public ResponseEntity<ActivityResponse> updateActivity(@RequestBody UpdateActivityRequest updateActivityRequest) throws Exception {
         if (updateActivityRequest.getId() == null) {
             // todo
@@ -69,7 +69,7 @@ public class ActivityController {
           .body(response);
     }
 
-    @PatchMapping("/activities/{id}")
+    @PatchMapping()
     public ResponseEntity<ActivityResponse> updateActivity(@PathVariable Long id, @RequestBody PatchActivityRequest patchActivityRequest) throws Exception {
 
         if (patchActivityRequest.getTitle() == null)
@@ -85,7 +85,7 @@ public class ActivityController {
           .body(response);
     }
 
-    @GetMapping("/activities")
+    @GetMapping()
     public List<ActivityResponse> getAllActivities() throws Exception {
 
         // Add JWT username
@@ -102,7 +102,7 @@ public class ActivityController {
      * Get all GYM activities by user
      * @return
      */
-    @GetMapping("/activities/gym")
+    @GetMapping()
     public List<ActivityResponse> getAllGymActivities() throws Exception {
         // Add JWT username
         String userName = "user";
@@ -117,7 +117,7 @@ public class ActivityController {
      * Get activities by activity type
      * @return
      */
-    @GetMapping("/activities/expense")
+    @GetMapping()
     public List<ActivityResponse> getExpenseActivitiesByType(@RequestParam(name = "type") String activityType) throws Exception {
         // Add JWT username
         String userName = "user";
@@ -132,7 +132,7 @@ public class ActivityController {
      * Get activity SubTypes by activity type
      * @return
      */
-    @GetMapping("/activities/subtypes/{typeId}")
+    @GetMapping()
     public List<String> getSubTypesByActivityType(@PathVariable String typeId) throws Exception {
         // Add JWT username
         String userName = "user";
@@ -146,7 +146,7 @@ public class ActivityController {
      * @param id the id of the activity to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the activity, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/activities/{id}")
+    @GetMapping()
     public ResponseEntity<ActivityResponse> getActivity(@PathVariable Long id) throws Exception {
         ActivityResponse activity = activityDomainToResponseMapper.mapToActivityResponse(activityService.getActivity(id)
           .get());
@@ -159,7 +159,7 @@ public class ActivityController {
      * @param id the id of the activity to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/activities/{id}")
+    @DeleteMapping()
     public ResponseEntity<Void> deleteActivity(@PathVariable Long id) throws Exception {
         activityService.deleteActivity(id);
         return ResponseEntity.noContent()
@@ -167,7 +167,7 @@ public class ActivityController {
           .build();
     }
 
-    @PostMapping(path = "/activities/create")
+    @PostMapping(path = "x")
     public ResponseEntity<String> createActivity(@RequestBody CreateActivityDTO createActivityDTO) throws Exception {
 
         String userName = "user";
@@ -181,13 +181,13 @@ public class ActivityController {
         return ResponseEntity.ok(activityId);
     }
 
-    @GetMapping(path = "/activities/grouped")
+    @GetMapping(path = "x")
     public ResponseEntity<CategoryResponseDto> getAllActivityGrouped() throws Exception {
         CategoryResponseDto categories = activityService.getUserActivitiesGrouped();
         return ResponseEntity.ok(categories);
     }
 
-    @GetMapping(path = "/activities/grouped/me")
+    @GetMapping(path = "x")
     public ResponseEntity<CategoryResponseDto> getAllActivityGroupedByCategoriesForUser() throws Exception {
         // Add JWT username
         String userName = "user";

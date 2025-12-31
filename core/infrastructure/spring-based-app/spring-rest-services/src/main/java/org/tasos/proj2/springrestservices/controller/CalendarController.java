@@ -34,8 +34,8 @@ import java.awt.Color;
 import java.util.Random;
 
 @RestController
-@CrossOrigin(origins = {"https://proj2.localhost", "https://localhost:4201", "https://localhost:9003"})
-@RequestMapping("/api/proj2")
+@CrossOrigin(origins = {"x"})
+@RequestMapping()
 public class CalendarController {
 
     private final Logger log = LoggerFactory.getLogger(CalendarController.class);
@@ -54,7 +54,7 @@ public class CalendarController {
         this.activityService = activityService;
     }
 
-    @PostMapping("/day-activities/edit/date")
+    @PostMapping()
     public ResponseEntity<EditPillDateDTO> editDatePill(@RequestBody @Valid EditPillDateDTO editPillDate) throws Exception {
 
         log.debug("REST request to edit date of pill (ex. when dragging)");
@@ -77,7 +77,7 @@ public class CalendarController {
     }
 
     // Get pills for all types
-    @GetMapping("/day-activities/all/calendar")
+    @GetMapping()
     public List<ActivityTypeCalendarDisplayDTO> getAllPillsForCalendar() throws Exception {
         log.debug("REST request to getAllPillsForCalendar");
 
